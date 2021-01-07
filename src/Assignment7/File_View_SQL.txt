@@ -1,0 +1,100 @@
+
+ - Lớp Student
+    create view select * from table_mark_view
+    select student.idStudent, classs.nameClass, student.nameStudent, student.ageStudent, student.dateStudent, student.genderStudent, student.addressStudent, student.phoneStudent
+            from student
+            inner join classs on student.idClass = classs.idClass
+
+     + UPDATE
+
+     CREATE PROCEDURE update_student_by_id
+	@idStudent varchar(50),
+	@nameStudent varchar(50),
+	@ageStudent int,
+	@dateStudent varchar(50),
+	@genderStudent varchar(50),
+	@addressStudent varchar(50),
+	@phoneStudent varchar(50),
+	@idClass varchar(50)
+        AS
+        update student set nameStudent = @nameStudent, ageStudent = @ageStudent,
+                 dateStudent = @dateStudent, genderStudent = @genderStudent,
+                  addressStudent = @addressStudent,  phoneStudent = @phoneStudent,
+                 idClass = @idClass	 where idStudent = @idStudent
+
+ - lớp class
+    + NHẬP 
+
+    CREATE PROCEDURE insert_into_class
+	@idClass varchar(50),
+	@nameClass varchar(50)
+    AS
+    insert into classs( idClass, nameClass)
+            values(@idClass, @nameClass)
+    + XÓA       
+
+    CREATE PROCEDURE delete_class_by_id
+            @idClass varchar(50)
+    As
+
+    delete from classs where idClass = @idClass
+
+    exec delete_class_by_id @idClass
+    +TÌM KIẾM
+
+    CREATE PROCEDURE search_class_by_name
+	@nameClass varchar(50)
+    AS
+    select * from classs where nameClass like @nameClass
+
+CREATE PROCEDURE update_class_by_id
+	@idClass varchar(50),
+	@nameClass varchar(50)
+AS
+update classs set nameClass = @nameClass where idClass = @idClass
+
+
+
+- SEMESTER
+   + UPDATE
+    CREATE PROCEDURE update_semester_by_id
+	@idSem varchar(50),
+	@nameSem varchar(50),
+	@dateSem varchar(50)
+    AS
+    update semester set nameSem = @nameSem, dateSem = @dateSem where idSem = @idSem
+
+- SUBJECT
+   + UPDATE 
+
+    CREATE PROCEDURE update_subject_by_id
+	@idSub varchar(50),
+	@nameSub varchar(50)
+    AS
+    update subject set nameSub = @nameSub where idSub = @idSub
+
+
+
+
+- MARK
+
+ + UPDATE
+
+    CREATE PROCEDURE update_mark_by_idSub
+            @idStudent varchar(50),
+            @idSub varchar(50),
+            @idSem int,
+            @pga varchar(50)
+
+    AS
+    update mark set idStudent = @idStudent, idSem = @idSem, pga = @pga	where idSub = @idSub
+
+        create view view_table_marks as
+        select top 10000 classs.nameClass, student.idStudent, student.nameStudent, mark.pga, subject.idSub, semester.idSem 
+	from student inner join classs on student.idClass = classs.idClass
+				inner join mark on mark.idStudent = student.idStudent
+				inner join subject on subject.idSub = mark.idSub
+				inner join semester on semester.idSem = mark.idSem
+				order by classs.nameClass
+
+

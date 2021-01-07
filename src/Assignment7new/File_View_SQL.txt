@@ -1,0 +1,18 @@
+create view show_Mark_Student_View as
+
+select student.idStudent, student.nameStudent, classs.nameClass, mark.pga, subject.idSub, semester.idSem 
+	from student inner join classs on student.idClass = classs.idClass
+				inner join mark on mark.idStudent = student.idStudent
+				inner join subject on subject.idSub = mark.idSub
+				inner join semester on semester.idSem = mark.idSem
+
+CREATE PROCEDURE Search_Student @idStudent varchar(50)
+AS
+
+select student.idStudent, student.nameStudent, classs.nameClass, mark.pga, subject.idSub, semester.idSem 
+	from student inner join classs on student.idClass = classs.idClass
+				inner join mark on mark.idStudent = student.idStudent
+				inner join subject on subject.idSub = mark.idSub
+				inner join semester on semester.idSem = mark.idSem
+				WHERE student.idStudent = @idStudent
+

@@ -1,0 +1,2 @@
+    1.Tạo lớp chia sẻ dữ liệu SharedData (Dự liệu cho mọi đối tượng thao tác vào được)
+    2.Tạo luồng customThread đc kế thừa lớp thread
